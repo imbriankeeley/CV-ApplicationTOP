@@ -1,14 +1,17 @@
 import "../styles/Personal.css";
-import React from "react";
-import { useState } from "react";
 
-export default function Personal() {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
-  const [website, setWebsite] = useState("");
-
+export default function Personal({
+  name,
+  address,
+  email,
+  number,
+  website,
+  setName,
+  setAddress,
+  setEmail,
+  setNumber,
+  setWebsite,
+}) {
   return (
     <>
       <form className="form">
@@ -42,14 +45,6 @@ export default function Personal() {
           />
         </div>
       </form>
-
-      <div className="preview">
-        <h2>{name}</h2>
-        <p>{address}</p>
-        <p>{email}</p>
-        <p>{number}</p>
-        <p>{website}</p>
-      </div>
     </>
   );
 }

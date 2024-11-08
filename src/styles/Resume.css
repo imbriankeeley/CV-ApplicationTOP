@@ -1,0 +1,64 @@
+.resume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid grey;
+  background-color: #f5f5f5;
+  margin-top: 100px;
+  min-height: 300px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-family: "Times New Roman", serif;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+span {
+  font-weight: bold;
+  color: #333;
+}
+
+.personal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100px;
+  min-width: 800px;
+  margin-top: 40px;
+}
+
+.nameAndAddressPreview {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.emailNumberWebsitePreview {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+}
