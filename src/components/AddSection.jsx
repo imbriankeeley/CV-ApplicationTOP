@@ -1,11 +1,21 @@
 import "../styles/AddSection.css";
 import { useState } from "react";
+import Experience from "./Experience";
+import Education from "./Education";
+import Projects from "./Projects";
+import SkillsInterests from "./SkillsInterests";
+import Certifications from "./Certifications";
 
-export default function AddSection() {
+export default function AddSection({ addSection }) {
   const [visable, setVisable] = useState(false);
 
   const toggleDropdown = () => {
     setVisable(!visable);
+  };
+
+  const handleAddSection = (SectionComponent) => {
+    addSection(SectionComponent);
+    setVisable(false);
   };
 
   return (
@@ -16,11 +26,36 @@ export default function AddSection() {
         </button>
         {visable && (
           <div className={`addSectionDropdown ${visable ? "open" : ""}`}>
-            <button className="sectionBtn">Skills or Interests</button>
-            <button className="sectionBtn">Education</button>
-            <button className="sectionBtn">Experience</button>
-            <button className="sectionBtn">Projects</button>
-            <button className="sectionBtn">Certifications</button>
+            <button
+              className="sectionBtn"
+              onClick={() => handleAddSection(Experience)}
+            >
+              Experience
+            </button>
+            <button
+              className="sectionBtn"
+              onClick={() => handleAddSection(Education)}
+            >
+              Education
+            </button>
+            <button
+              className="sectionBtn"
+              onClick={() => handleAddSection(Projects)}
+            >
+              Projects
+            </button>
+            <button
+              className="sectionBtn"
+              onClick={() => handleAddSection(SkillsInterests)}
+            >
+              Skills or Interests
+            </button>
+            <button
+              className="sectionBtn"
+              onClick={() => handleAddSection(Certifications)}
+            >
+              Certifications
+            </button>
           </div>
         )}
       </div>
