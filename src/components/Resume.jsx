@@ -1,6 +1,14 @@
 import "../styles/Resume.css";
 
-export default function Resume({ name, address, email, number, website }) {
+export default function Resume({
+  name,
+  address,
+  email,
+  number,
+  website,
+  views,
+  experience,
+}) {
   return (
     <div className="resume">
       <div className="personal">
@@ -16,6 +24,9 @@ export default function Resume({ name, address, email, number, website }) {
           <p>{website}</p>
         </div>
       </div>
+      {views.map((ViewComponent, index) => (
+        <ViewComponent key={index} />
+      ))}
     </div>
   );
 }

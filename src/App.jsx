@@ -4,6 +4,7 @@ import Personal from "./components/Personal.jsx";
 import Resume from "./components/Resume.jsx";
 import AddSection from "./components/AddSection.jsx";
 import Experience from "./components/Experience.jsx";
+import ExperienceView from "./components/ExperienceView.jsx";
 import Education from "./components/Education.jsx";
 import Projects from "./components/Projects.jsx";
 import SkillsInterests from "./components/SkillsInterests.jsx";
@@ -16,9 +17,12 @@ function App() {
   const [number, setNumber] = useState("");
   const [website, setWebsite] = useState("");
   const [sections, setSections] = useState([]);
+  const [views, setViews] = useState([]);
+  const [experience, setExperience] = useState([]);
 
-  const addSection = (section) => {
+  const addSection = (section, view) => {
     setSections([...sections, section]);
+    setViews([...views, view]);
   };
 
   return (
@@ -45,6 +49,8 @@ function App() {
         email={email}
         number={number}
         website={website}
+        experience={experience}
+        views={views}
       />
     </>
   );

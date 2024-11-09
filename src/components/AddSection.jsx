@@ -1,6 +1,7 @@
 import "../styles/AddSection.css";
 import { useState } from "react";
 import Experience from "./Experience";
+import ExperienceView from "./ExperienceView";
 import Education from "./Education";
 import Projects from "./Projects";
 import SkillsInterests from "./SkillsInterests";
@@ -8,14 +9,23 @@ import Certifications from "./Certifications";
 
 export default function AddSection({ addSection }) {
   const [visable, setVisable] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
-    setVisable(!visable);
+    if (isOpen) {
+      setIsOpen(false);
+      setTimeout(() => setVisable(false), 400);
+    } else {
+      setVisable(true);
+      setTimeout(() => setIsOpen(true), 10);
+    }
   };
 
-  const handleAddSection = (SectionComponent) => {
-    addSection(SectionComponent);
+  const handleAddSection = (SectionComponent, ViewComponent) => {
+    addSection(SectionComponent, ViewComponent);
+    setIsOpen(false);
     setVisable(false);
+    // setTimeout(() => setVisable(false), 400);
   };
 
   return (
@@ -24,40 +34,40 @@ export default function AddSection({ addSection }) {
         <button className="addSectionBtn" onClick={toggleDropdown}>
           Add Section {visable ? "▲" : "▼"}
         </button>
-        {visable && (
-          <div className={`addSectionDropdown ${visable ? "open" : ""}`}>
-            <button
-              className="sectionBtn"
-              onClick={() => handleAddSection(Experience)}
-            >
-              Experience
-            </button>
-            <button
-              className="sectionBtn"
-              onClick={() => handleAddSection(Education)}
-            >
-              Education
-            </button>
-            <button
-              className="sectionBtn"
-              onClick={() => handleAddSection(Projects)}
-            >
-              Projects
-            </button>
-            <button
-              className="sectionBtn"
-              onClick={() => handleAddSection(SkillsInterests)}
-            >
-              Skills or Interests
-            </button>
-            <button
-              className="sectionBtn"
-              onClick={() => handleAddSection(Certifications)}
-            >
-              Certifications
-            </button>
-          </div>
-        )}
+        <div
+          className={`addSectionDropdown ${isOpen ? "open" : ""} ${!isOpen && visable ? "closed" : ""}`}
+        >
+          <button
+            className="sectionBtn"
+            onClick={() => handleAddSection(Experience, ExperienceView)}
+          >
+            Experience
+          </button>
+          <button
+            className="sectionBtn"
+            onClick={() => handleAddSection(Education)}
+          >
+            Education
+          </button>
+          <button
+            className="sectionBtn"
+            onClick={() => handleAddSection(Projects)}
+          >
+            Projects
+          </button>
+          <button
+            className="sectionBtn"
+            onClick={() => handleAddSection(SkillsInterests)}
+          >
+            Skills or Interests
+          </button>
+          <button
+            className="sectionBtn"
+            onClick={() => handleAddSection(Certifications)}
+          >
+            Certifications
+          </button>
+        </div>
       </div>
     </div>
   );

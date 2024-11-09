@@ -1,39 +1,19 @@
 import "../styles/Resume.css";
+import { useState } from "react";
 
-export default function Experience({ name, address, email, number, website }) {
+export default function Experience(experience, setExperience) {
+  const [experience, setExperience] = useState("");
+
   return (
-    <>
-      <form className="form">
-        <div className="nameAndAddress">
-          <input
-            id="name"
-            placeholder="John Doe"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            id="address"
-            placeholder="Shell City, BB, OCA"
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <div className="emailNumberWebsite">
-          <input
-            id="email"
-            placeholder="something@email.com"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            id="number"
-            placeholder="(515) 555-5555"
-            onChange={(e) => setNumber(e.target.value)}
-          />
-          <input
-            id="website"
-            placeholder="yourwebsite.com/about"
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-        </div>
+    <div className="experience">
+      <form>
+        <input
+          type="text"
+          placeholder="Enter your experience"
+          value={experience}
+          onChange={(e) => setExperience(e.target.value)}
+        />
       </form>
-    </>
+    </div>
   );
 }

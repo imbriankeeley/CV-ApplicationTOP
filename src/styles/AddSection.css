@@ -27,6 +27,7 @@ button:active {
   flex-direction: column;
   justify-content: center;
   margin-top: 1rem;
+  width: 200px;
 }
 
 .addSectionDropdown {
@@ -36,11 +37,13 @@ button:active {
   justify-content: center;
   background-color: #1a1a1a;
   border-radius: 8px;
+  display: none;
 }
 
 .open {
   animation: expand 0.3s ease-in-out;
   transform-origin: top;
+  display: block;
 }
 
 @keyframes expand {
@@ -55,11 +58,29 @@ button:active {
   }
 }
 
+.closed {
+  animation: close 0.4s ease-in-out;
+  transform-origin: top;
+  display: block;
+}
+
+@keyframes close {
+  0% {
+    transform: scaleY(1);
+  }
+  30% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+
 .addSectionBtn {
-  width: 100%;
+  width: 200px;
   text-align: center;
 }
 
 .sectionBtn {
-  width: 100%;
+  width: 200px;
 }
