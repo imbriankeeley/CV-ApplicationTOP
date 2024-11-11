@@ -22,17 +22,32 @@ export default function Experience({ experiences, setExperiences }) {
     };
     console.log("Adding new experience:", newExperience);
 
-    setExperiences((prevExperiences) => [...prevExperiences, newExperience]);
+    setExperiences([...experiences, newExperience]);
   };
+
+  const deleteExperience = (idToDelete) => {
+    setExperiences((prevExperiences) =>
+      prevExperiences.filter((exp) => exp.id !== idToDelete),
+    );
+  };
+
   return (
     <>
       {experiences.map((experience) => (
-        <ExperienceForm
-          key={experience.id}
-          experience={experience}
-          experiences={experiences}
-          setExperiences={setExperiences}
-        />
+        <div key={experience.id} className="experienceFormWrapper">
+          <ExperienceForm
+            key={experience.id}
+            experience={experience}
+            experiences={experiences}
+            setExperiences={setExperiences}
+          />
+          <button
+            className="deleteExperienceBtn"
+            onClick={() => deleteExperience(experience.id)}
+          >
+            Delete
+          </button>
+        </div>
       ))}
       <AddNewForm form="Experience" onClick={addNewExperienceForm} />
     </>

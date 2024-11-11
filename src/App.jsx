@@ -37,7 +37,6 @@ function App() {
           type: Experience,
           key: newKey,
           props: {
-            experienceId: newKey,
             experiences, // Use the updated experiences array
             setExperiences,
           },
@@ -48,31 +47,46 @@ function App() {
         ...prevViews,
         {
           type: ExperienceView,
-          key: experiences[0].id,
-          props: experiences[0],
+          key: newKey,
+          props: { experiences },
         },
       ]);
     }
   };
 
-  // Update views when experiences change
   useEffect(() => {
     setViews((prevViews) => {
-      return prevViews.map((view) => {
+      const updatedViews = prevViews.map((view) => {
         if (view.type === ExperienceView) {
-          const experience = experiences.find((exp) => exp.id === view.key);
-          if (experience) {
-            return {
-              ...view,
-              props: experience,
-            };
-          }
+          return {
+            ...view,
+            props: { experiences }, // Update with current experiences
+          };
         }
         return view;
       });
+      return updatedViews;
     });
   }, [experiences]);
 
+  // Update experience component
+  useEffect(() => {
+    setSections((prevSections) =>
+      prevSections.map((section) => {
+        if (section.type === Experience) {
+          return {
+            ...section,
+            props: {
+              ...section.props,
+              experiences, // Update with new experiences array
+              setExperiences,
+            },
+          };
+        }
+        return section;
+      }),
+    );
+  }, [experiences]);
   return (
     <>
       <div className="formSection">
