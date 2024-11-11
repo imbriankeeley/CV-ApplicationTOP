@@ -1,29 +1,40 @@
 import "../styles/components/Experience.css";
 import ExperienceForm from "../components/forms/ExperienceForm.jsx";
 import AddNewForm from "../components/buttons/AddNewForm";
-import { useState } from "react";
+import { useEffect } from "react";
 
-export default function Experience({
-  setTitle,
-  setCompany,
-  setDate,
-  setLocation,
-  setAccomplishment1,
-  setAccomplishment2,
-  setAccomplishment3,
-}) {
+export default function Experience({ experiences, setExperiences }) {
+  useEffect(() => {
+    console.log("Experiences prop changed:", experiences);
+  }, [experiences]);
+
+  const addNewExperienceForm = () => {
+    const newKey = new Date().getTime();
+    const newExperience = {
+      id: newKey,
+      title: "",
+      company: "",
+      date: "",
+      location: "",
+      accomplishment1: "",
+      accomplishment2: "",
+      accomplishment3: "",
+    };
+    console.log("Adding new experience:", newExperience);
+
+    setExperiences((prevExperiences) => [...prevExperiences, newExperience]);
+  };
   return (
     <>
-      <ExperienceForm
-        setTitle={setTitle}
-        setCompany={setCompany}
-        setDate={setDate}
-        setLocation={setLocation}
-        setAccomplishment1={setAccomplishment1}
-        setAccomplishment2={setAccomplishment2}
-        setAccomplishment3={setAccomplishment3}
-      />
-      <AddNewForm form="Experience" />
+      {experiences.map((experience) => (
+        <ExperienceForm
+          key={experience.id}
+          experience={experience}
+          experiences={experiences}
+          setExperiences={setExperiences}
+        />
+      ))}
+      <AddNewForm form="Experience" onClick={addNewExperienceForm} />
     </>
   );
 }

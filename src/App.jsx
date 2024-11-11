@@ -14,107 +14,64 @@ function App() {
   const [website, setWebsite] = useState("");
   const [sections, setSections] = useState([]);
   const [views, setViews] = useState([]);
-
-  // Experience state
-  const [title, setTitle] = useState("");
-  const [company, setCompany] = useState("");
-  const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
-  const [accomplishment1, setAccomplishment1] = useState("");
-  const [accomplishment2, setAccomplishment2] = useState("");
-  const [accomplishment3, setAccomplishment3] = useState("");
+  const [experiences, setExperiences] = useState([
+    {
+      id: new Date().getTime(),
+      title: "",
+      company: "",
+      date: "",
+      location: "",
+      accomplishment1: "",
+      accomplishment2: "",
+      accomplishment3: "",
+    },
+  ]);
 
   const addSection = (section) => {
     if (section === "Experience") {
       const newKey = new Date().getTime();
-      setSections([
-        ...sections,
+
+      setSections((prevSections) => [
+        ...prevSections,
         {
           type: Experience,
           key: newKey,
           props: {
-            setTitle: setTitle,
-            setCompany: setCompany,
-            setDate: setDate,
-            setLocation: setLocation,
-            setAccomplishment1: setAccomplishment1,
-            setAccomplishment2: setAccomplishment2,
-            setAccomplishment3: setAccomplishment3,
+            experienceId: newKey,
+            experiences, // Use the updated experiences array
+            setExperiences,
           },
         },
       ]);
-      setViews([
-        ...views,
+
+      setViews((prevViews) => [
+        ...prevViews,
         {
           type: ExperienceView,
-
-          key: newKey,
-          props: {
-            title: title,
-            company: company,
-            date: date,
-            location: location,
-            accomplishment1: accomplishment1,
-            accomplishment2: accomplishment2,
-            accomplishment3: accomplishment3,
-          },
+          key: experiences[0].id,
+          props: experiences[0],
         },
       ]);
     }
-    // if (section === "Education") {
-    //   setSections([
-    //     ...sections,
-    //     { type: Education, props: { key: new Date().getTime() } },
-    //   ]);
-    // }
-    // if (section === "Projects") {
-    //   setSections([
-    //     ...sections,
-    //     { type: Projects, props: { key: new Date().getTime() } },
-    //   ]);
-    // }
-    // if (section === "SkillsInterests") {
-    //   setSections([
-    //     ...sections,
-    //     { type: SkillsInterests, props: { key: new Date().getTime() } },
-    //   ]);
-    // }
-    // if (section === "Certifications") {
-    //   setSections([
-    //     ...sections,
-    //     { type: Certifications, props: { key: new Date().getTime() } },
-    //   ]);
-    // }
-    // setSections([...sections, section]);
-
-    // setViews([...views, view]);
   };
 
+  // Update views when experiences change
   useEffect(() => {
-    setViews((prevViews) =>
-      prevViews.map((view) => ({
-        ...view,
-        props: {
-          ...view.props,
-          title: title,
-          company: company,
-          date: date,
-          location: location,
-          accomplishment1: accomplishment1,
-          accomplishment2: accomplishment2,
-          accomplishment3: accomplishment3,
-        },
-      })),
-    );
-  }, [
-    title,
-    company,
-    date,
-    location,
-    accomplishment1,
-    accomplishment2,
-    accomplishment3,
-  ]);
+    setViews((prevViews) => {
+      return prevViews.map((view) => {
+        if (view.type === ExperienceView) {
+          const experience = experiences.find((exp) => exp.id === view.key);
+          if (experience) {
+            return {
+              ...view,
+              props: experience,
+            };
+          }
+        }
+        return view;
+      });
+    });
+  }, [experiences]);
 
   return (
     <>
@@ -131,9 +88,9 @@ function App() {
           setNumber={setNumber}
           setWebsite={setWebsite}
         />
-        {sections.map((section, index) => {
+        {sections.map((section) => {
           const SectionComponent = section.type;
-          return <SectionComponent key={index} {...section.props} />;
+          return <SectionComponent key={section.key} {...section.props} />;
         })}
         <AddSection addSection={addSection} />
       </div>
