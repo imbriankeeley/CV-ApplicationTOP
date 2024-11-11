@@ -17,6 +17,12 @@ function App() {
 
   // Experience state
   const [title, setTitle] = useState("");
+  const [company, setCompany] = useState("");
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [accomplishment1, setAccomplishment1] = useState("");
+  const [accomplishment2, setAccomplishment2] = useState("");
+  const [accomplishment3, setAccomplishment3] = useState("");
 
   const addSection = (section) => {
     if (section === "Experience") {
@@ -25,10 +31,15 @@ function App() {
         ...sections,
         {
           type: Experience,
+          key: newKey,
           props: {
-            key: newKey,
-            title: title,
             setTitle: setTitle,
+            setCompany: setCompany,
+            setDate: setDate,
+            setLocation: setLocation,
+            setAccomplishment1: setAccomplishment1,
+            setAccomplishment2: setAccomplishment2,
+            setAccomplishment3: setAccomplishment3,
           },
         },
       ]);
@@ -36,7 +47,17 @@ function App() {
         ...views,
         {
           type: ExperienceView,
-          props: { key: newKey, title: title },
+
+          key: newKey,
+          props: {
+            title: title,
+            company: company,
+            date: date,
+            location: location,
+            accomplishment1: accomplishment1,
+            accomplishment2: accomplishment2,
+            accomplishment3: accomplishment3,
+          },
         },
       ]);
     }
@@ -76,10 +97,24 @@ function App() {
         props: {
           ...view.props,
           title: title,
+          company: company,
+          date: date,
+          location: location,
+          accomplishment1: accomplishment1,
+          accomplishment2: accomplishment2,
+          accomplishment3: accomplishment3,
         },
       })),
     );
-  }, [title]);
+  }, [
+    title,
+    company,
+    date,
+    location,
+    accomplishment1,
+    accomplishment2,
+    accomplishment3,
+  ]);
 
   return (
     <>
