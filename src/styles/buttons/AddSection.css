@@ -1,10 +1,9 @@
 .addContainer {
-  min-width: 800px;
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding-top: 20px;
-  padding-bottom: 40px;
 }
 
 button {

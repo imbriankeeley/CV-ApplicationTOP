@@ -1,17 +1,28 @@
 #root {
   max-width: 1280px;
+  height: 100dvh;
+  width: 100dvw;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin-top: 100px;
+  padding: 3rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 body {
   height: 100dvh;
   width: 100dvw;
+}
+
+.formSection {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: flex-start;
+  max-width: 30dvw;
+}
+
+.viewSection {
+  max-width: 55dvw;
 }

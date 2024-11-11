@@ -1,4 +1,4 @@
-import "../styles/Resume.css";
+import "../styles/components/Resume.css";
 
 export default function Resume({
   name,

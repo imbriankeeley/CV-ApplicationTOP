@@ -1,11 +1,5 @@
-import "../styles/AddSection.css";
+import "../../styles/buttons/AddSection.css";
 import { useState } from "react";
-import Experience from "./Experience";
-import ExperienceView from "./ExperienceView";
-import Education from "./Education";
-import Projects from "./Projects";
-import SkillsInterests from "./SkillsInterests";
-import Certifications from "./Certifications";
 
 export default function AddSection({ addSection }) {
   const [visable, setVisable] = useState(false);

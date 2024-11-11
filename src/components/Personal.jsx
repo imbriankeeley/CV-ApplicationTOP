@@ -1,4 +1,4 @@
-import "../styles/Personal.css";
+import "../styles/components/Personal.css";
 
 export default function Personal({
   name,
