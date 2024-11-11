@@ -7,7 +7,6 @@ export default function Resume({
   number,
   website,
   views,
-  experience,
 }) {
   return (
     <div className="resume">
@@ -24,9 +23,10 @@ export default function Resume({
           <p>{website}</p>
         </div>
       </div>
-      {views.map((ViewComponent, index) => (
-        <ViewComponent key={index} />
-      ))}
+      {views.map((view, index) => {
+        const ViewComponent = view.type;
+        return <ViewComponent key={index} {...view.props} />;
+      })}
     </div>
   );
 }

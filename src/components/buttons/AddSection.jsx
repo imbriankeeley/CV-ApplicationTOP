@@ -4,6 +4,13 @@ import { useState } from "react";
 export default function AddSection({ addSection }) {
   const [visable, setVisable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [sections, setSections] = useState([
+    "Experience",
+    "Education",
+    "Projects",
+    "SkillsInterests",
+    "Certifications",
+  ]);
 
   const toggleDropdown = () => {
     if (isOpen) {
@@ -15,8 +22,9 @@ export default function AddSection({ addSection }) {
     }
   };
 
-  const handleAddSection = (SectionComponent, ViewComponent) => {
-    addSection(SectionComponent, ViewComponent);
+  const handleAddSection = (section) => {
+    addSection(section);
+    setSections(sections.filter((sec) => sec !== section));
     setIsOpen(false);
     setVisable(false);
     // setTimeout(() => setVisable(false), 400);
@@ -31,36 +39,15 @@ export default function AddSection({ addSection }) {
         <div
           className={`addSectionDropdown ${isOpen ? "open" : ""} ${!isOpen && visable ? "closed" : ""}`}
         >
-          <button
-            className="sectionBtn"
-            onClick={() => handleAddSection(Experience, ExperienceView)}
-          >
-            Experience
-          </button>
-          <button
-            className="sectionBtn"
-            onClick={() => handleAddSection(Education)}
-          >
-            Education
-          </button>
-          <button
-            className="sectionBtn"
-            onClick={() => handleAddSection(Projects)}
-          >
-            Projects
-          </button>
-          <button
-            className="sectionBtn"
-            onClick={() => handleAddSection(SkillsInterests)}
-          >
-            Skills or Interests
-          </button>
-          <button
-            className="sectionBtn"
-            onClick={() => handleAddSection(Certifications)}
-          >
-            Certifications
-          </button>
+          {sections.map((section) => (
+            <button
+              key={section}
+              className="sectionBtn"
+              onClick={() => handleAddSection(section)}
+            >
+              {section}
+            </button>
+          ))}
         </div>
       </div>
     </div>

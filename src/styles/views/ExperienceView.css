@@ -1,0 +1,43 @@
+.experienceContainer {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.experienceView {
+  width: 100%;
+}
+
+.line {
+  margin-top: 2px;
+  height: 2px;
+  width: 100%;
+  background-color: #333;
+}
+
+.experienceh1 {
+  font-size: 1.1rem;
+}
+
+.titleAndDate {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 10px;
+}
+
+.company {
+  font-style: italic;
+  margin: 0;
+}
+
+.accomplishments {
+  padding-left: 20px;
+}
