@@ -2,7 +2,7 @@ import "../../styles/buttons/AddNewForm.css";
 
 export default function AddNewForm({ form, onClick, label = "Add Form" }) {
   label = "Add " + form;
-  if (form === "Experience") {
+  if (form === "Experience" || form === "Education") {
     return (
       <>
         <div className="addNewFormContainer">

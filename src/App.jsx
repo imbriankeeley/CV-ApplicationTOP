@@ -5,6 +5,8 @@ import Resume from "./components/Resume.jsx";
 import AddSection from "./components/buttons/AddSection.jsx";
 import Experience from "./components/Experience.jsx";
 import ExperienceView from "./components/views/ExperienceView.jsx";
+import Education from "./components/Education.jsx";
+import EducationView from "./components/views/EducationView.jsx";
 
 function App() {
   const [name, setName] = useState("");
@@ -27,10 +29,20 @@ function App() {
     },
   ]);
 
-  const addSection = (section) => {
-    if (section === "Experience") {
-      const newKey = new Date().getTime();
+  const [educations, setEducations] = useState([
+    {
+      id: new Date().getTime(),
+      school: "",
+      degree: "",
+      date: "",
+      location: "",
+      courseWork: "",
+    },
+  ]);
 
+  const addSection = (section) => {
+    const newKey = new Date().getTime();
+    if (section === "Experience") {
       setSections((prevSections) => [
         ...prevSections,
         {
@@ -52,6 +64,28 @@ function App() {
         },
       ]);
     }
+    if (section === "Education") {
+      setSections((prevSections) => [
+        ...prevSections,
+        {
+          type: Education,
+          key: newKey,
+          props: {
+            educations,
+            setEducations,
+          },
+        },
+      ]);
+
+      setViews((prevViews) => [
+        ...prevViews,
+        {
+          type: EducationView,
+          key: newKey,
+          props: { educations },
+        },
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -63,11 +97,17 @@ function App() {
             props: { experiences }, // Update with current experiences
           };
         }
+        if (view.type === EducationView) {
+          return {
+            ...view,
+            props: { educations },
+          };
+        }
         return view;
       });
       return updatedViews;
     });
-  }, [experiences]);
+  }, [experiences, educations]);
 
   // Update experience component
   useEffect(() => {
@@ -83,10 +123,20 @@ function App() {
             },
           };
         }
+        if (section.type === Education) {
+          return {
+            ...section,
+            props: {
+              ...section.props,
+              educations,
+              setEducations,
+            },
+          };
+        }
         return section;
       }),
     );
-  }, [experiences]);
+  }, [experiences, educations]);
   return (
     <>
       <div className="formSection">

@@ -1,0 +1,68 @@
+import "../../styles/forms/EducationForm.css";
+
+export default function EducationForm({ educations, setEducations}) {
+  const updateEducation = (field, value) => {
+    setEducations((prevEducations) =>
+      prevEducations.map((edu) =>
+        edu.id === education.id ? { ...edu, [field]: value } : edu,
+      ),
+    );
+  };
+  return (
+    <form className="educationForm">
+      <div className="Container">
+        <label htmlFor={`school-${education.id}`}>School</label>
+        <input
+          id={`title-${education.id}`}
+          defaultValue={education.school}
+          placeholder="Software Engineer"
+          onChange={(e) => updateEducation("school", e.target.value)}
+        />
+      </div>
+
+      <div className="Container">
+        <label htmlFor={`degree-${education.id}`}>Degree</label>
+        <input
+          id={`company-${education.id}`}
+          defaultValue={education.degree}
+          placeholder="Sprig"
+          onChange={(e) => updateEducation("degree", e.target.value)}
+        />
+      </div>
+
+      <div className="Container">
+        <label htmlFor={`date-${education.id}`}>Date</label>
+        <input
+          id={`date-${education.id}`}
+          defaultValue={education.date}
+          placeholder="October 2024 - Present"
+          onChange={(e) => updateEducation("date", e.target.value)}
+        />
+      </div>
+
+      <div className="Container">
+        <label htmlFor={`location-${education.id}`}>Location</label>
+        <input
+          id={`location-${education.id}`}
+          defaultValue={education.location}
+          placeholder="Remote"
+          onChange={(e) => updateEducation("location", e.target.value)}
+        />
+      </div>
+
+      <div className="Container">
+        <label className="accomplishmentsTag">Course Work</label>
+        <div className="accomplishmentsForm">
+          <input
+            id={`courseWork-${education.id}`}
+            defaultValue={education.courseWork}
+            placeholder="Made the whole backend :)"
+            onChange={(e) =>
+              updateEducation("courseWork", e.target.value)
+            }
+          />
+        </div>
+      </div>
+    </form>
+  );
+}

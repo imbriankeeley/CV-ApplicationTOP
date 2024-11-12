@@ -1,15 +1,6 @@
 import ExperienceViewForm from "./forms/ExperienceViewForm.jsx";
 
-export default function ExperienceView({
-  experiences,
-  title,
-  company,
-  date,
-  location,
-  accomplishment1,
-  accomplishment2,
-  accomplishment3,
-}) {
+export default function ExperienceView({ experiences }) {
   return (
     <div className="experienceContainer">
       <div className="experienceView">
