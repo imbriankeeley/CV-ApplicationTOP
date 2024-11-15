@@ -1,4 +1,5 @@
 import "../styles/components/Resume.css";
+import "../styles/views/ExperienceView.css";
 
 export default function Resume({
   name,
@@ -8,37 +9,69 @@ export default function Resume({
   website,
   views,
 }) {
+  const handlePrint = () => {
+    const originalContent = document.body.innerHTML;
+    const resumeContent = document.querySelector(".resume");
+
+    // Temporarily replace the entire body content with just the resume
+    document.body.innerHTML = resumeContent.outerHTML;
+
+    // Add print-specific styles
+    const style = document.createElement("style");
+    style.textContent = `
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        .resume {
+          width: 210mm;
+          min-height: 297mm;
+          padding: 20mm;
+          margin: 0;
+          box-sizing: border-box;
+        }
+        @page {
+          size: A4;
+          margin: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Print
+    window.print();
+
+    // Restore the original content
+    document.body.innerHTML = originalContent;
+    document.head.removeChild(style);
+  };
   return (
-    <div className="resume">
-      <div className="personal">
-        <div className="nameAndAddressPreview">
-          <h1>{name}</h1>
-          <h2>{address}</h2>
+    <>
+      <div className="resume">
+        <div className="personal">
+          <div className="nameAndAddressPreview">
+            <h1>{name}</h1>
+            <h2>{address}</h2>
+          </div>
+          <div className="emailNumberWebsitePreview">
+            <p>{email}</p>
+            {email.length > 0 && <span>✥</span>}
+            <p>{number}</p>
+            {number.length > 0 && <span>✥</span>}
+            <p>{website}</p>
+          </div>
         </div>
-        <div className="emailNumberWebsitePreview">
-          <p>{email}</p>
-          <span>✥</span>
-          <p>{number}</p>
-          <span>✥</span>
-          <p>{website}</p>
-        </div>
+        {views.map((view) => {
+          const ViewComponent = view.type;
+          return <ViewComponent key={view.key} {...view.props} />;
+        })}
       </div>
-      {/* {experiences.map((experience) => ( */}
-      {/*   <ExperienceView */}
-      {/*     key={experience.id} */}
-      {/*     title={experience.title} */}
-      {/*     company={experience.company} */}
-      {/*     date={experience.date} */}
-      {/*     location={experience.location} */}
-      {/*     accomplishment1={experience.accomplishment1} */}
-      {/*     accomplishment2={experience.accomplishment2} */}
-      {/*     accomplishment3={experience.accomplishment3} */}
-      {/*   /> */}
-      {/* ))} */}
-      {views.map((view) => {
-        const ViewComponent = view.type;
-        return <ViewComponent key={view.key} {...view.props} />;
-      })}
-    </div>
+      <div className="print">
+        <button className="printBtn" onClick={handlePrint}>
+          Print Resume
+        </button>
+      </div>
+    </>
   );
 }

@@ -8,6 +8,10 @@
   margin-top: 30px;
 }
 
+.skills {
+  margin-bottom: -50px;
+}
+
 .Container {
   display: flex;
   width: 100%;

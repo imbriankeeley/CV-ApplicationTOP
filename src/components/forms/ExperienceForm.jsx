@@ -51,7 +51,7 @@ export default function ExperienceForm({ experience, setExperiences }) {
       </div>
 
       <div className="Container">
-        <label className="accomplishmentsTag">Accomplishments</label>
+        <label className="accomplishmentsTag">Job Feats</label>
         <div className="accomplishmentsForm">
           <input
             id={`accomplishment1-${experience.id}`}

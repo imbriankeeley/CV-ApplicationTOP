@@ -27,6 +27,7 @@ button:active {
   justify-content: center;
   margin-top: 1rem;
   width: 200px;
+  margin-bottom: 40px;
 }
 
 .addSectionDropdown {

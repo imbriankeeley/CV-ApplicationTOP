@@ -1,45 +1,29 @@
-import "../styles/Resume.css";
+import "../styles/components/Education.css";
+import SkillsInterestsForm from "../components/forms/SkillsInterestsForm.jsx";
 
-export default function SkillsInterests({
-  name,
-  address,
-  email,
-  number,
-  website,
-}) {
+export default function SkillsInterests({ skills, setSkills }) {
+  const addNewForm = () => {
+    const newSkillsInterests = {
+      id: new Date().getTime(),
+      tech: "",
+      interests: "",
+    };
+
+    setSkills([...skills, newSkillsInterests]);
+  };
+
   return (
     <>
-      <form className="form">
-        <div className="nameAndAddress">
-          <input
-            id="name"
-            placeholder="John Doe"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            id="address"
-            placeholder="Shell City, BB, OCA"
-            onChange={(e) => setAddress(e.target.value)}
+      {skills.map((skill) => (
+        <div key={skill.id} className="experienceFormWrapper">
+          <SkillsInterestsForm
+            key={skill.id}
+            skill={skill}
+            skills={skills}
+            setSkills={setSkills}
           />
         </div>
-        <div className="emailNumberWebsite">
-          <input
-            id="email"
-            placeholder="something@email.com"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            id="number"
-            placeholder="(515) 555-5555"
-            onChange={(e) => setNumber(e.target.value)}
-          />
-          <input
-            id="website"
-            placeholder="yourwebsite.com/about"
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-        </div>
-      </form>
+      ))}
     </>
   );
 }

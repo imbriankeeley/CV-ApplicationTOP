@@ -7,6 +7,12 @@ import Experience from "./components/Experience.jsx";
 import ExperienceView from "./components/views/ExperienceView.jsx";
 import Education from "./components/Education.jsx";
 import EducationView from "./components/views/EducationView.jsx";
+import Projects from "./components/Projects.jsx";
+import ProjectsView from "./components/views/ProjectsView.jsx";
+import Certifications from "./components/Certifications.jsx";
+import CertificationsView from "./components/views/CertificationView.jsx";
+import SkillsInterests from "./components/SkillsInterests.jsx";
+import SkillsInterestsView from "./components/views/SkillsInterestsView.jsx";
 
 function App() {
   const [name, setName] = useState("");
@@ -37,6 +43,35 @@ function App() {
       date: "",
       location: "",
       courseWork: "",
+    },
+  ]);
+
+  const [projects, setProjects] = useState([
+    {
+      id: new Date().getTime(),
+      projectTitle: "",
+      link: "",
+      description: "",
+      feat1: "",
+      feat2: "",
+      feat3: "",
+    },
+  ]);
+
+  const [certifications, setCertifications] = useState([
+    {
+      id: new Date().getTime(),
+      cert: "",
+      institue: "",
+      date: "",
+    },
+  ]);
+
+  const [skills, setSkills] = useState([
+    {
+      id: new Date().getTime(),
+      tech: "",
+      interests: "",
     },
   ]);
 
@@ -86,6 +121,75 @@ function App() {
         },
       ]);
     }
+    if (section === "Projects") {
+      setSections((prevSections) => [
+        ...prevSections,
+        {
+          type: Projects,
+          key: newKey,
+          props: {
+            projects,
+            setProjects,
+          },
+        },
+      ]);
+
+      setViews((prevViews) => [
+        ...prevViews,
+        {
+          type: ProjectsView,
+          key: newKey,
+          props: { projects },
+        },
+      ]);
+    }
+    if (section === "Certifications") {
+      setSections((prevSections) => [
+        ...prevSections,
+        {
+          type: Certifications,
+          key: newKey,
+          props: {
+            certifications,
+            setCertifications,
+          },
+        },
+      ]);
+
+      setViews((prevViews) => [
+        ...prevViews,
+        {
+          type: CertificationsView,
+          key: newKey,
+
+          props: { certifications },
+        },
+      ]);
+    }
+    if (section === "SkillsInterests") {
+      setSections((prevSections) => [
+        ...prevSections,
+        {
+          type: SkillsInterests,
+          key: newKey,
+          props: {
+            skills,
+            setSkills,
+          },
+        },
+      ]);
+
+      setViews((prevViews) => [
+        ...prevViews,
+        {
+          type: SkillsInterestsView,
+          key: newKey,
+          props: {
+            skills,
+          },
+        },
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -103,11 +207,29 @@ function App() {
             props: { educations },
           };
         }
+        if (view.type === ProjectsView) {
+          return {
+            ...view,
+            props: { projects },
+          };
+        }
+        if (view.type === CertificationsView) {
+          return {
+            ...view,
+            props: { certifications },
+          };
+        }
+        if (view.type === SkillsInterestsView) {
+          return {
+            ...view,
+            props: { skills },
+          };
+        }
         return view;
       });
       return updatedViews;
     });
-  }, [experiences, educations]);
+  }, [experiences, educations, projects, certifications, skills]);
 
   // Update experience component
   useEffect(() => {
@@ -133,10 +255,40 @@ function App() {
             },
           };
         }
+        if (section.type === Projects) {
+          return {
+            ...section,
+            props: {
+              ...section.props,
+              projects,
+              setProjects,
+            },
+          };
+        }
+        if (section.type === Certifications) {
+          return {
+            ...section,
+            props: {
+              ...section.props,
+              certifications,
+              setCertifications,
+            },
+          };
+        }
+        if (section.type === SkillsInterests) {
+          return {
+            ...section,
+            props: {
+              ...section.props,
+              skills,
+              setSkills,
+            },
+          };
+        }
         return section;
       }),
     );
-  }, [experiences, educations]);
+  }, [experiences, educations, projects, certifications, skills]);
   return (
     <>
       <div className="formSection">

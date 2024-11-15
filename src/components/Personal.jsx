@@ -1,4 +1,5 @@
 import "../styles/components/Personal.css";
+import React, { useRef, useEffect } from "react";
 
 export default function Personal({
   name,

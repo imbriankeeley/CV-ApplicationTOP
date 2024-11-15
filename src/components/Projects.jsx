@@ -1,39 +1,47 @@
-import "../styles/Resume.css";
+import "../styles/components/Education.css";
+import ProjectsForm from "../components/forms/ProjectsForm.jsx";
+import AddNewForm from "../components/buttons/AddNewForm";
 
-export default function Projects({ name, address, email, number, website }) {
+export default function Projects({ projects, setProjects }) {
+  const addNewForm = () => {
+    const newProject = {
+      id: new Date().getTime(),
+      projectTitle: "",
+      link: "",
+      description: "",
+      feat1: "",
+      feat2: "",
+      feat3: "",
+    };
+
+    setProjects([...projects, newProject]);
+  };
+
+  const deleteProject = (idToDelete) => {
+    setProjects((prevProjects) =>
+      prevProjects.filter((proj) => proj.id !== idToDelete),
+    );
+  };
+
   return (
     <>
-      <form className="form">
-        <div className="nameAndAddress">
-          <input
-            id="name"
-            placeholder="John Doe"
-            onChange={(e) => setName(e.target.value)}
+      {projects.map((project) => (
+        <div key={project.id} className="experienceFormWrapper">
+          <ProjectsForm
+            key={project.id}
+            project={project}
+            projects={projects}
+            setProjects={setProjects}
           />
-          <input
-            id="address"
-            placeholder="Shell City, BB, OCA"
-            onChange={(e) => setAddress(e.target.value)}
-          />
+          <button
+            className="deleteExperienceBtn"
+            onClick={() => deleteProject(project.id)}
+          >
+            Delete
+          </button>
         </div>
-        <div className="emailNumberWebsite">
-          <input
-            id="email"
-            placeholder="something@email.com"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            id="number"
-            placeholder="(515) 555-5555"
-            onChange={(e) => setNumber(e.target.value)}
-          />
-          <input
-            id="website"
-            placeholder="yourwebsite.com/about"
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-        </div>
-      </form>
+      ))}
+      <AddNewForm form="Project" onClick={addNewForm} />
     </>
   );
 }

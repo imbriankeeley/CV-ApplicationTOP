@@ -5,10 +5,10 @@ export default function AddSection({ addSection }) {
   const [visable, setVisable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [sections, setSections] = useState([
-    "Experience",
-    "Education",
-    "Projects",
     "SkillsInterests",
+    "Education",
+    "Experience",
+    "Projects",
     "Certifications",
   ]);
 

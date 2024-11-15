@@ -10,6 +10,16 @@
   padding: 2rem;
 }
 
+.print {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.printBtn {
+  margin: 20px;
+}
+
 h1,
 h2,
 p {

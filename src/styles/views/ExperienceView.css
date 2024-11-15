@@ -16,6 +16,10 @@
   background-color: #333;
 }
 
+.projectFeats {
+  margin-top: 5px;
+}
+
 .experienceh1 {
   font-size: 1.1rem;
 }
@@ -40,4 +44,39 @@
 
 .accomplishments {
   padding-left: 20px;
+}
+
+.padding {
+  padding-top: 6px;
+  padding-left: 20px;
+}
+
+.tech {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.top {
+  margin-bottom: -8px;
+}
+
+.titleAndLink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.column {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blue {
+  color: light-blue;
+}
+
+.black {
+  font-weight: normal;
 }
