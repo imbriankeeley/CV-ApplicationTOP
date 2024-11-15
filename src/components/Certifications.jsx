@@ -1,5 +1,5 @@
 import "../styles/components/Education.css";
-import CertificationsForm from "../components/forms/certificationsForm.jsx";
+import CertificationsForm from "../components/forms/CertificationsForm.jsx";
 import AddNewForm from "../components/buttons/AddNewForm";
 
 export default function Certifications({ certifications, setCertifications }) {
