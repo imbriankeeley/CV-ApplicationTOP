@@ -14,6 +14,9 @@ import CertificationsView from "./components/views/CertificationView.jsx";
 import SkillsInterests from "./components/SkillsInterests.jsx";
 import SkillsInterestsView from "./components/views/SkillsInterestsView.jsx";
 
+import Section from "./components/Section.jsx";
+import View from "./components/View.jsx";
+
 function App() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -75,122 +78,169 @@ function App() {
     },
   ]);
 
-  const addSection = (section) => {
-    const newKey = new Date().getTime();
-    if (section === "Experience") {
-      setSections((prevSections) => [
-        ...prevSections,
-        {
-          type: Experience,
-          key: newKey,
-          props: {
-            experiences, // Use the updated experiences array
-            setExperiences,
-          },
-        },
-      ]);
-
-      setViews((prevViews) => [
-        ...prevViews,
-        {
-          type: ExperienceView,
-          key: newKey,
-          props: { experiences },
-        },
-      ]);
+  const updateState = (state, newState) => {
+    if (state === "Education") {
+      setEducations(educations, newState);
     }
-    if (section === "Education") {
-      setSections((prevSections) => [
-        ...prevSections,
-        {
-          type: Education,
-          key: newKey,
-          props: {
-            educations,
-            setEducations,
-          },
-        },
-      ]);
-
-      setViews((prevViews) => [
-        ...prevViews,
-        {
-          type: EducationView,
-          key: newKey,
-          props: { educations },
-        },
-      ]);
+    if (state === "Experience") {
+      setExperiences(experiences, newState);
     }
-    if (section === "Projects") {
-      setSections((prevSections) => [
-        ...prevSections,
-        {
-          type: Projects,
-          key: newKey,
-          props: {
-            projects,
-            setProjects,
-          },
-        },
-      ]);
-
-      setViews((prevViews) => [
-        ...prevViews,
-        {
-          type: ProjectsView,
-          key: newKey,
-          props: { projects },
-        },
-      ]);
+    if (state === "Project") {
+      setProjects(projects, newState);
     }
-    if (section === "Certifications") {
-      setSections((prevSections) => [
-        ...prevSections,
-        {
-          type: Certifications,
-          key: newKey,
-          props: {
-            certifications,
-            setCertifications,
-          },
-        },
-      ]);
-
-      setViews((prevViews) => [
-        ...prevViews,
-        {
-          type: CertificationsView,
-          key: newKey,
-
-          props: { certifications },
-        },
-      ]);
+    if (state === "Certification") {
+      setCertifications(certifications, newState);
     }
-    if (section === "SkillsInterests") {
-      setSections((prevSections) => [
-        ...prevSections,
-        {
-          type: SkillsInterests,
-          key: newKey,
-          props: {
-            skills,
-            setSkills,
-          },
-        },
-      ]);
-
-      setViews((prevViews) => [
-        ...prevViews,
-        {
-          type: SkillsInterestsView,
-          key: newKey,
-          props: {
-            skills,
-          },
-        },
-      ]);
+    if (state === "Skill") {
+      setSkills(skills, newState);
     }
   };
+
+  const addSection = (section) => {
+    const newKey = new Date().getTime();
+    setSections((prevSections) => [
+      ...prevSections,
+      {
+        type: Section,
+        key: newKey,
+        props: {
+          section, // Use the updated experiences array
+          experiences,
+          educations,
+          projects,
+          certifications,
+          skills,
+          updateState,
+        },
+      },
+    ]);
+
+    setViews((prevViews) => [
+      ...prevViews,
+      {
+        type: View,
+        key: newKey,
+        props: { section },
+      },
+    ]);
+  };
+
+  // const addSection = (section) => {
+  //   const newKey = new Date().getTime();
+  //   if (section === "Experience") {
+  //     setSections((prevSections) => [
+  //       ...prevSections,
+  //       {
+  //         type: Experience,
+  //         key: newKey,
+  //         props: {
+  //           experiences, // Use the updated experiences array
+  //           setExperiences,
+  //         },
+  //       },
+  //     ]);
+  //
+  //     setViews((prevViews) => [
+  //       ...prevViews,
+  //       {
+  //         type: ExperienceView,
+  //         key: newKey,
+  //         props: { experiences },
+  //       },
+  //     ]);
+  //   }
+  //   if (section === "Education") {
+  //     setSections((prevSections) => [
+  //       ...prevSections,
+  //       {
+  //         type: Education,
+  //         key: newKey,
+  //         props: {
+  //           educations,
+  //           setEducations,
+  //         },
+  //       },
+  //     ]);
+  //
+  //     setViews((prevViews) => [
+  //       ...prevViews,
+  //       {
+  //         type: EducationView,
+  //         key: newKey,
+  //         props: { educations },
+  //       },
+  //     ]);
+  //   }
+  //   if (section === "Projects") {
+  //     setSections((prevSections) => [
+  //       ...prevSections,
+  //       {
+  //         type: Projects,
+  //         key: newKey,
+  //         props: {
+  //           projects,
+  //           setProjects,
+  //         },
+  //       },
+  //     ]);
+  //
+  //     setViews((prevViews) => [
+  //       ...prevViews,
+  //       {
+  //         type: ProjectsView,
+  //         key: newKey,
+  //         props: { projects },
+  //       },
+  //     ]);
+  //   }
+  //   if (section === "Certifications") {
+  //     setSections((prevSections) => [
+  //       ...prevSections,
+  //       {
+  //         type: Certifications,
+  //         key: newKey,
+  //         props: {
+  //           certifications,
+  //           setCertifications,
+  //         },
+  //       },
+  //     ]);
+  //
+  //     setViews((prevViews) => [
+  //       ...prevViews,
+  //       {
+  //         type: CertificationsView,
+  //         key: newKey,
+  //
+  //         props: { certifications },
+  //       },
+  //     ]);
+  //   }
+  //   if (section === "SkillsInterests") {
+  //     setSections((prevSections) => [
+  //       ...prevSections,
+  //       {
+  //         type: SkillsInterests,
+  //         key: newKey,
+  //         props: {
+  //           skills,
+  //           setSkills,
+  //         },
+  //       },
+  //     ]);
+  //
+  //     setViews((prevViews) => [
+  //       ...prevViews,
+  //       {
+  //         type: SkillsInterestsView,
+  //         key: newKey,
+  //         props: {
+  //           skills,
+  //         },
+  //       },
+  //     ]);
+  //   }
+  // };
 
   useEffect(() => {
     setViews((prevViews) => {
