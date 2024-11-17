@@ -1,5 +1,7 @@
 import "../styles/Section.css";
 import Form from "./Form";
+import Delete from "./buttons/Delete";
+import AddNewForm from "./buttons/AddNewForm";
 
 export default function Section({
   section,
@@ -15,10 +17,9 @@ export default function Section({
     updateState(section, form);
   };
 
-const deleteForm = (idToDelete, section) => {
-    setExperiences((prevExperiences) =>
-      prevExperiences.filter((exp) => exp.id !== idToDelete),
-    );
+  const deleteForm = (idToDelete, section) => {
+    const newState = section.filter((sec) => sec.id !== idToDelete);
+    updateState(section, newState);
   };
 
   const newExperience = {
@@ -39,20 +40,24 @@ const deleteForm = (idToDelete, section) => {
           <div key={experience.id} className="experienceFormWrapper">
             <Form
               key={experience.id}
-              experience={experience}
-              experiences={experiences}
+              section={"Experience"}
+              form={experience}
+              forms={experiences}
               updateState={updateState}
             />
-            <Delete onClick={deleteForm}
-            <button
-              className="deleteExperienceBtn"
-              onClick={() => deleteExperience(experience.id, section)}
-            >
-              Delete
-            </button>
+            <Delete
+              id={experience.id}
+              section={experiences}
+              onClick={deleteForm}
+            />
           </div>
         ))}
-        <AddNewForm form="Experience" onClick={newForm} />
+        <AddNewForm
+          title={"Experience"}
+          onClick={newForm}
+          section={experiences}
+          form={newExperience}
+        />
       </>
     );
   }

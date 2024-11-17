@@ -1,11 +1,22 @@
 import "../../styles/buttons/AddNewForm.css";
 
-export default function AddNewForm({ form, onClick, label = "Add Form" }) {
-  label = "Add " + form;
+export default function AddNewForm({
+  title,
+  onClick,
+  section,
+  form,
+  label = "Add Form",
+}) {
+  label = "Add " + title;
   return (
     <>
       <div className="addNewFormContainer">
-        <button type="button" onClick={onClick}>
+        <button
+          type="button"
+          onClick={() => {
+            onClick(section, form);
+          }}
+        >
           {label}
         </button>
       </div>

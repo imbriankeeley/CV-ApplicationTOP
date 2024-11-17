@@ -1,4 +1,10 @@
-export default function Delete(onClick) {
-  onClick();
-  return <button className="deleteExperienceBtn"></button>;
+export default function Delete({ id, section, onClick }) {
+  return (
+    <button
+      className="deleteExperienceBtn"
+      onClick={() => onClick(id, section)}
+    >
+      Delete
+    </button>
+  );
 }
