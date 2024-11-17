@@ -3,17 +3,6 @@ import { useState, useEffect } from "react";
 import Personal from "./components/Personal.jsx";
 import Resume from "./components/Resume.jsx";
 import AddSection from "./components/buttons/AddSection.jsx";
-import Experience from "./components/Experience.jsx";
-import ExperienceView from "./components/views/ExperienceView.jsx";
-import Education from "./components/Education.jsx";
-import EducationView from "./components/views/EducationView.jsx";
-import Projects from "./components/Projects.jsx";
-import ProjectsView from "./components/views/ProjectsView.jsx";
-import Certifications from "./components/Certifications.jsx";
-import CertificationsView from "./components/views/CertificationView.jsx";
-import SkillsInterests from "./components/SkillsInterests.jsx";
-import SkillsInterestsView from "./components/views/SkillsInterestsView.jsx";
-
 import Section from "./components/Section.jsx";
 import View from "./components/View.jsx";
 
@@ -80,19 +69,19 @@ function App() {
 
   const updateState = (state, newState) => {
     if (state === "Education") {
-      setEducations(educations, newState);
+      setEducations((prev) => [...prev, newState]);
     }
     if (state === "Experience") {
-      setExperiences(experiences, newState);
+      setExperiences((prev) => [...prev, newState]);
     }
     if (state === "Project") {
-      setProjects(projects, newState);
+      setProjects((prev) => [...prev, newState]);
     }
     if (state === "Certification") {
-      setCertifications(certifications, newState);
+      setCertifications((prev) => [...prev, newState]);
     }
     if (state === "Skill") {
-      setSkills(skills, newState);
+      setSkills((prev) => [...prev, newState]);
     }
   };
 
@@ -104,7 +93,7 @@ function App() {
         type: Section,
         key: newKey,
         props: {
-          section, // Use the updated experiences array
+          section,
           experiences,
           educations,
           projects,
@@ -132,37 +121,20 @@ function App() {
     ]);
   };
 
+  // Update view component
   useEffect(() => {
     setViews((prevViews) => {
       const updatedViews = prevViews.map((view) => {
-        if (view.type === ExperienceView) {
+        if (view.type === View) {
           return {
             ...view,
-            props: { experiences }, // Update with current experiences
-          };
-        }
-        if (view.type === EducationView) {
-          return {
-            ...view,
-            props: { educations },
-          };
-        }
-        if (view.type === ProjectsView) {
-          return {
-            ...view,
-            props: { projects },
-          };
-        }
-        if (view.type === CertificationsView) {
-          return {
-            ...view,
-            props: { certifications },
-          };
-        }
-        if (view.type === SkillsInterestsView) {
-          return {
-            ...view,
-            props: { skills },
+            props: {
+              experiences,
+              educations,
+              projects,
+              certifications,
+              skills,
+            }, // Update with current experiences
           };
         }
         return view;
@@ -171,7 +143,7 @@ function App() {
     });
   }, [experiences, educations, projects, certifications, skills]);
 
-  // Update experience component
+  // Update section component
   useEffect(() => {
     setSections((prevSections) =>
       prevSections.map((section) => {
@@ -190,50 +162,11 @@ function App() {
             },
           };
         }
-        if (section.type === Education) {
-          return {
-            ...section,
-            props: {
-              ...section.props,
-              educations,
-              setEducations,
-            },
-          };
-        }
-        if (section.type === Projects) {
-          return {
-            ...section,
-            props: {
-              ...section.props,
-              projects,
-              setProjects,
-            },
-          };
-        }
-        if (section.type === Certifications) {
-          return {
-            ...section,
-            props: {
-              ...section.props,
-              certifications,
-              setCertifications,
-            },
-          };
-        }
-        if (section.type === SkillsInterests) {
-          return {
-            ...section,
-            props: {
-              ...section.props,
-              skills,
-              setSkills,
-            },
-          };
-        }
         return section;
       }),
     );
   }, [experiences, educations, projects, certifications, skills]);
+
   return (
     <>
       <div className="formSection">
