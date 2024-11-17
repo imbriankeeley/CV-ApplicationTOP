@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Personal from "./components/Personal.jsx";
 import Resume from "./components/Resume.jsx";
 import AddSection from "./components/buttons/AddSection.jsx";
@@ -67,59 +67,129 @@ function App() {
     },
   ]);
 
-  const updateState = (state, newState) => {
-    if (state === "Education") {
+  const updateState = useCallback((section, newState) => {
+    if (section === "Education") {
       setEducations((prev) => [...prev, newState]);
     }
-    if (state === "Experience") {
+    if (section === "Experience") {
       setExperiences((prev) => [...prev, newState]);
     }
-    if (state === "Project") {
+    if (section === "Project") {
       setProjects((prev) => [...prev, newState]);
     }
-    if (state === "Certification") {
+    if (section === "Certification") {
       setCertifications((prev) => [...prev, newState]);
     }
-    if (state === "Skill") {
+    if (section === "Skills and Interests") {
       setSkills((prev) => [...prev, newState]);
     }
-  };
+  }, []);
 
-  const addSection = (section) => {
-    const newKey = new Date().getTime();
-    setSections((prevSections) => [
-      ...prevSections,
-      {
-        type: Section,
-        key: newKey,
-        props: {
-          section,
-          experiences,
-          educations,
-          projects,
-          certifications,
-          skills,
-          updateState,
-        },
-      },
-    ]);
+  const deleteForm = useCallback((id, section) => {
+    if (section === "Experience") {
+      setExperiences((prev) => prev.filter((sec) => sec.id !== id));
+    }
+    if (section === "Education") {
+      setEducations((prev) => prev.filter((sec) => sec.id !== id));
+    }
+    if (section === "Projects") {
+      setProjects((prev) => prev.filter((sec) => sec.id !== id));
+    }
+    if (section === "Certifications") {
+      setCertifications((prev) => prev.filter((sec) => sec.id !== id));
+    }
+    if (section === "SkillsInterests") {
+      setSkills((prev) => prev.filter((sec) => sec.id !== id));
+    }
+  }, []);
 
-    setViews((prevViews) => [
-      ...prevViews,
-      {
-        type: View,
-        key: newKey,
-        props: {
-          section,
-          experiences,
-          educations,
-          projects,
-          certifications,
-          skills,
+  const updateForm = useCallback((field, value, section, forms, form) => {
+    if (section === "Experience") {
+      setExperiences((prev) =>
+        prev.map((sec) =>
+          sec.id === form.id ? { ...sec, [field]: value } : sec,
+        ),
+      );
+    }
+    if (section === "Education") {
+      setEducations((prev) =>
+        prev.map((sec) =>
+          sec.id === form.id ? { ...sec, [field]: value } : sec,
+        ),
+      );
+    }
+    if (section === "Projects") {
+      setProjects((prev) =>
+        prev.map((sec) =>
+          sec.id === form.id ? { ...sec, [field]: value } : sec,
+        ),
+      );
+    }
+    if (section === "Certifications") {
+      setCertifications((prev) =>
+        prev.map((sec) =>
+          sec.id === form.id ? { ...sec, [field]: value } : sec,
+        ),
+      );
+    }
+    if (section === "SkillsInterests") {
+      setSkills((prev) =>
+        prev.map((sec) =>
+          sec.id === form.id ? { ...sec, [field]: value } : sec,
+        ),
+      );
+    }
+  }, []);
+
+  const addSection = useCallback(
+    (section) => {
+      const newKey = new Date().getTime();
+      setSections((prevSections) => [
+        ...prevSections,
+        {
+          type: Section,
+          key: newKey,
+          props: {
+            section,
+            experiences,
+            educations,
+            projects,
+            certifications,
+            skills,
+            updateState,
+            deleteForm,
+            updateForm,
+          },
         },
-      },
-    ]);
-  };
+      ]);
+
+      setViews((prevViews) => [
+        ...prevViews,
+        {
+          type: View,
+          key: newKey,
+          props: {
+            section,
+            experiences,
+            educations,
+            projects,
+            certifications,
+            skills,
+          },
+        },
+      ]);
+    },
+    [
+      experiences,
+      educations,
+      projects,
+      certifications,
+      skills,
+      updateState,
+      deleteForm,
+      updateForm,
+    ],
+  );
 
   // Update view component
   useEffect(() => {
@@ -129,6 +199,8 @@ function App() {
           return {
             ...view,
             props: {
+              ...view.props,
+              section: view.props.section,
               experiences,
               educations,
               projects,
@@ -152,20 +224,30 @@ function App() {
             ...section,
             props: {
               ...section.props,
-              section,
               experiences,
               educations,
               projects,
               certifications,
               skills,
               updateState,
+              deleteForm,
+              updateForm,
             },
           };
         }
         return section;
       }),
     );
-  }, [experiences, educations, projects, certifications, skills]);
+  }, [
+    experiences,
+    educations,
+    projects,
+    certifications,
+    skills,
+    updateState,
+    deleteForm,
+    updateForm,
+  ]);
 
   return (
     <>

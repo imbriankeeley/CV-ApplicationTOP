@@ -1,5 +1,6 @@
 import "../styles/components/Resume.css";
 import "../styles/views/ExperienceView.css";
+import View from "./View";
 
 export default function Resume({
   name,
@@ -63,8 +64,7 @@ export default function Resume({
           </div>
         </div>
         {views.map((view) => {
-          const ViewComponent = view.type;
-          return <ViewComponent key={view.key} {...view.props} />;
+          return <View key={view.key} {...view.props} />;
         })}
       </div>
       <div className="print">

@@ -3,7 +3,6 @@ import "../../styles/buttons/AddNewForm.css";
 export default function AddNewForm({
   title,
   onClick,
-  section,
   form,
   label = "Add Form",
 }) {
@@ -14,7 +13,7 @@ export default function AddNewForm({
         <button
           type="button"
           onClick={() => {
-            onClick(section, form);
+            onClick(title, form);
           }}
         >
           {label}

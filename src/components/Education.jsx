@@ -4,15 +4,6 @@ import AddNewForm from "../components/buttons/AddNewForm";
 
 export default function Education({ educations, setEducations }) {
   const addNewEducationForm = () => {
-    const newEducation = {
-      id: new Date().getTime(),
-      school: "",
-      degree: "",
-      date: "",
-      location: "",
-      courseWork: "",
-    };
-
     setEducations([...educations, newEducation]);
   };
 
