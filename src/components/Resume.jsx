@@ -1,5 +1,5 @@
 import "../styles/components/Resume.css";
-import "../styles/views/ExperienceView.css";
+import "../styles/View.css";
 import View from "./View";
 
 export default function Resume({
