@@ -27,7 +27,6 @@ export default function AddSection({ addSection }) {
     setSections(sections.filter((sec) => sec !== section));
     setIsOpen(false);
     setVisable(false);
-    // setTimeout(() => setVisable(false), 400);
   };
 
   return (
