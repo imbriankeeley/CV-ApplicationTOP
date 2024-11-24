@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect, useCallback } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Personal from "./components/Personal.jsx";
 import Resume from "./components/Resume.jsx";
 import AddSection from "./components/buttons/AddSection.jsx";
@@ -7,6 +8,11 @@ import Section from "./components/Section.jsx";
 import View from "./components/View.jsx";
 
 function App() {
+  const [formRef] = useAutoAnimate({
+    duration: 300,
+    easing: "ease",
+    disrespectUserMotionPreference: false,
+  });
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -251,7 +257,7 @@ function App() {
 
   return (
     <>
-      <div className="formSection">
+      <div ref={formRef} className="formSection">
         <Personal
           name={name}
           address={address}
